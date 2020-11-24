@@ -81,6 +81,12 @@ def webhook():
     
     return "FATAL ERROR",500
 
+
+@app.route('/ping')
+def ping():
+    return "hello , im alive ",200
+
+
 if __name__ == '__main__':
     process=None
     pids=[]
