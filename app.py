@@ -87,13 +87,19 @@ def ping():
     return "hello , im alive ",200
 
 
+@app.route('/fulfilment/<channel>', methods = ['POST'])
+def fulfilment(channel):
+    incoming_data = request.get_json()
+    json.dump(incoming_data , open(channel+'.json','w+'))
+    return "Recieved FulFilment",200
+
 if __name__ == '__main__':
-    process=None
+    #process=None
     pids=[]
     logging.basicConfig(filename='activity.log',level=logging.DEBUG)
-    for items in INTENTS_2_CHANNELS.keys():        
-        process= subprocess.Popen(['python messaging_wrapper.py '+INTENTS_2_CHANNELS[items]+'_FullFillment'], shell=True,
-            stdin=None, stdout=None, stderr=None, close_fds=True)
-        pids.append(process.pid)
+    # for items in INTENTS_2_CHANNELS.keys():        
+    #     process= subprocess.Popen(['python messaging_wrapper.py '+INTENTS_2_CHANNELS[items]+'_FullFillment'], shell=True,
+    #         stdin=None, stdout=None, stderr=None, close_fds=True)
+    #     pids.append(process.pid)
     logging.info("process ids: "+ str(pids))
     app.run()
