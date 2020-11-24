@@ -2,7 +2,7 @@ from logging import DEBUG
 from typing import Dict
 import mqtt_utils
 from flask import Flask, request, jsonify
-from flask_ngrok import run_with_ngrok
+#from flask_ngrok import run_with_ngrok
 from datetime import datetime
 import time as T
 import json
@@ -12,7 +12,7 @@ import subprocess
 
 # Create Flask app and enable info level logging
 app = Flask(__name__)
-run_with_ngrok(app)
+#run_with_ngrok(app)
 
 INTENTS_2_CHANNELS={
 "Reterive Test Cases":"db9c38ca/TestCaseResults"
