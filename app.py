@@ -8,6 +8,7 @@ import time as T
 import json
 import logging
 import subprocess
+from os import path
 
 
 # Create Flask app and enable info level logging
@@ -53,20 +54,21 @@ def webhook():
         while count<FULFILLMENT_TIME_LIMIT:
             logging.debug("attempt: {0}".format(str(count)))
             T.sleep(1)
-            fulfilment = json.load(open(INTENTS_2_CHANNELS[intent].replace('/','')+'_FullFillment.json','r'))
-            FFM=mqtt_utils.find_N_return(fulfilment, 'id', id )
-            if( FFM is not None):
-                try:
-                    FFM_DATA = FFM['data']['fulfillmentText']
-                except:
-                    logging.error(" incorrect schema of FFM : {0}".format(str(FFM)))
+            if(path.exists(INTENTS_2_CHANNELS[intent].replace('/','')+'_FullFillment.json')):
+                fulfilment = json.load(open(INTENTS_2_CHANNELS[intent].replace('/','')+'_FullFillment.json','r'))
+                FFM=mqtt_utils.find_N_return(fulfilment, 'id', id )
+                if( FFM is not None):
+                    try:
+                        FFM_DATA = FFM['data']['fulfillmentText']
+                    except:
+                        logging.error(" incorrect schema of FFM : {0}".format(str(FFM)))
+                        return jsonify({
+                "fulfillmentText": "Some Error Occured While processing your request ",
+            })
+                    logging.debug("Successfully fulfilled id {0} with {1} ".format(id , str(FFM)))
                     return jsonify({
-            "fulfillmentText": "Some Error Occured While processing your request ",
-        })
-                logging.debug("Successfully fulfilled id {0} with {1} ".format(id , str(FFM)))
-                return jsonify({
-                "fulfillmentText":FFM_DATA
-                })          
+                    "fulfillmentText":FFM_DATA
+                    })          
 
             count = count +1
         logging.error("FFM Unsuccessful for id {0}".format(id))
