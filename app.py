@@ -14,9 +14,10 @@ from os import path
 # Create Flask app and enable info level logging
 app = Flask(__name__)
 #run_with_ngrok(app)
-
+#db9c38caTestCaseResults__FullFillment.json
 INTENTS_2_CHANNELS={
-"Reterive Test Cases":"db9c38ca/TestCaseResults"
+"Reterive Test Cases":"db9c38ca/TestCaseResults",
+"Get Run Failures":"db9c38ca/GetRunFailures"
 }
 FULFILLMENT_TIME_LIMIT=5
 
