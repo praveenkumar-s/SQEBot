@@ -102,4 +102,4 @@ if __name__ == '__main__':
     #         stdin=None, stdout=None, stderr=None, close_fds=True)
     #     pids.append(process.pid)
     logging.info("process ids: "+ str(pids))
-    app.run()
+    app.run( threaded = True)
