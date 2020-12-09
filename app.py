@@ -17,7 +17,10 @@ app = Flask(__name__)
 #db9c38caTestCaseResults__FullFillment.json
 INTENTS_2_CHANNELS={
 "Reterive Test Cases":"db9c38ca/TestCaseResults",
-"Get Run Failures":"db9c38ca/GetRunFailures"
+"Get Run Failures":"db9c38ca/GetRunFailures",
+"Reterive Results for a Build":"db9c38ca/GetAutomationResultsBuild",
+"Reterive_automation_results_for_testSuite":"db9c38ca/GetAutomationResultsTestSuite",
+"get_last_pass_for_a_suite":"db9c38ca/GetAutomationResultsLastPass"
 }
 FULFILLMENT_TIME_LIMIT=5
 
