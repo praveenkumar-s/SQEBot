@@ -1,9 +1,11 @@
 import paho.mqtt.client as mqtt
-
+import os
 #"db9c38ca/TestCaseResults"
+BROKER = os.environ.get('BROKER')
+
 def publish_message(topic,request):
     client = mqtt.Client()
-    client.connect("mqtt.eclipse.org", 1883, 60)
+    client.connect(BROKER, 1883, 60)
     client.publish(topic, request)
     client.disconnect()
 
