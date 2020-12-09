@@ -3,11 +3,11 @@ import os
 import time
 #"db9c38ca/TestCaseResults"
 BROKER = os.environ.get('BROKER')
-
-def publish_message(topic,request):
+BROKER='broker.hivemq.com'
+def publish_message(topic,request):#DONT USE DANGER O DANGER!!
     print(BROKER)
     client = mqtt.Client()
-    client.connect(BROKER, 1883, 10)
+    client.connect(BROKER, 1883, 5)
     time.sleep(2)
     if(client.is_connected):
         client.publish(topic, request)
@@ -18,3 +18,4 @@ def find_N_return(array , key , value ):
         if(items[key]==value):
             return items
     return None
+publish_message("db9c38ca/GetAutomationResultsBuild","test")

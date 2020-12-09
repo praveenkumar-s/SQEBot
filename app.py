@@ -9,7 +9,14 @@ import json
 import logging
 import subprocess
 from os import path
+import paho.mqtt.client as mqtt
+import os
+import time
 
+BROKER = os.environ.get('BROKER')
+#BROKER='broker.hivemq.com'
+client = mqtt.Client()
+client.connect(BROKER, 1883, 1000)
 
 # Create Flask app and enable info level logging
 app = Flask(__name__)
@@ -25,6 +32,13 @@ INTENTS_2_CHANNELS={
 FULFILLMENT_TIME_LIMIT=10
 
 
+
+def publish_message(topic,request):
+    if(client.is_connected):
+        client.publish(topic, request)
+    else:
+        client.connect(BROKER , 1883,1000)
+        client.publish(topic, request)
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -43,7 +57,7 @@ def webhook():
     
     #Send the Request to Remote Processing Engine: 
     try:
-        mqtt_utils.publish_message(INTENTS_2_CHANNELS[intent], json.dumps(request_))
+        publish_message(INTENTS_2_CHANNELS[intent], json.dumps(request_))
         logging.debug("Successfully published the request {0} \n\nto the channel: {1}".format(str(request_), INTENTS_2_CHANNELS[intent] ))
     except Exception as e :
         logging.error("Error Occurred while Send the Request to Remote Processing Engine : \n request: {0} , \n Error: {1}".format(str(request_), str(e.__traceback__()) ))
