@@ -22,7 +22,7 @@ INTENTS_2_CHANNELS={
 "Reterive_automation_results_for_testSuite":"db9c38ca/GetAutomationResultsTestSuite",
 "get_last_pass_for_a_suite":"db9c38ca/GetAutomationResultsLastPass"
 }
-FULFILLMENT_TIME_LIMIT=5
+FULFILLMENT_TIME_LIMIT=10
 
 
 
