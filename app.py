@@ -23,7 +23,7 @@ app = Flask(__name__)
 #run_with_ngrok(app)
 #db9c38caTestCaseResults__FullFillment.json
 INTENTS_2_CHANNELS={
-"Reterive Test Cases":"db9c38ca/TestCaseResults",
+ "Fetch Test Cases":"db9c38ca/TestCaseResults",
 "Reterivie Milestone Status for TestRail":"db9c38ca/GetMilestoneDetailsfromTestRail",
 "Reterive Results for a Build":"db9c38ca/GetAutomationResultsBuild",
 "Reterive_automation_results_for_testSuite":"db9c38ca/GetAutomationResultsTestSuite",
