@@ -49,6 +49,7 @@ def publish_message(topic,request):
 def webhook():
     """Handle webhook requests from Dialogflow."""
     # Get request body
+    fulfilment_type = 'fulfillmentText'
     try:
         request_ = request.get_json(force=True)
         id = request_['responseId']
@@ -80,17 +81,23 @@ def webhook():
             if(path.exists(INTENTS_2_CHANNELS[intent].replace('/','')+'_FullFillment.json')):
                 fulfilment = json.load(open(INTENTS_2_CHANNELS[intent].replace('/','')+'_FullFillment.json','r'))
                 FFM=mqtt_utils.find_N_return(fulfilment, 'id', id )
+
                 if( FFM is not None):
                     try:
-                        FFM_DATA = FFM['data']['fulfillmentText']
+                        if FFM['data'].get('fulfillmentText') == None:
+                            FFM_DATA = FFM['data']['richContent']
+                            fulfilment_type='richContent'
+                        else:
+                            FFM_DATA = FFM['data']['fulfillmentText']
                     except:
                         logging.error(" incorrect schema of FFM : {0}".format(str(FFM)))
                         return jsonify({
                 "fulfillmentText": "Some Error Occured While processing your request ",
             })
                     logging.debug("Successfully fulfilled id {0} with {1} ".format(id , str(FFM)))
+
                     return jsonify({
-                    "fulfillmentText":FFM_DATA
+                    fulfilment_type:FFM_DATA
                     })          
 
             count = count +1
