@@ -28,7 +28,9 @@ INTENTS_2_CHANNELS={
 "Reterive Results for a Build":"db9c38ca/GetAutomationResultsBuild",
 "Reterive_automation_results_for_testSuite":"db9c38ca/GetAutomationResultsTestSuite",
 "get_last_pass_for_a_suite":"db9c38ca/GetAutomationResultsLastPass",
-"Get Run Failures":"db9c38ca/OrchGetRunFailures"
+"Get Run Failures":"db9c38ca/OrchGetRunFailures",
+"Run Automation":"db9c38ca/OrchRunAutomation",
+"Rerun Failures":"db9c38ca/OrchFailureRerun"
 }
 FULFILLMENT_TIME_LIMIT=10
 
