@@ -30,7 +30,9 @@ INTENTS_2_CHANNELS={
 "get_last_pass_for_a_suite":"db9c38ca/GetAutomationResultsLastPass",
 "Get Run Failures":"db9c38ca/OrchGetRunFailures",
 "Run Automation":"db9c38ca/OrchRunAutomation",
-"Rerun Failures":"db9c38ca/OrchFailureRerun"
+"Rerun Failures":"db9c38ca/OrchFailureRerun",
+"SCM Get Sonar Status":"db9c38ca/SCMSonarstatus",
+"SCM Trigger Build":"db9c38ca/SCMTriggerBuild"
 }
 FULFILLMENT_TIME_LIMIT=10
 
