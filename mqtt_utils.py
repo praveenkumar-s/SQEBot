@@ -18,4 +18,3 @@ def find_N_return(array , key , value ):
         if(items[key]==value):
             return items
     return None
-publish_message("db9c38ca/GetAutomationResultsBuild","test")
