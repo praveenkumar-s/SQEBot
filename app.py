@@ -85,8 +85,8 @@ def webhook():
                 if( FFM is not None):
                     try:
                         if FFM['data'].get('fulfillmentText') == None:
-                            FFM_DATA = FFM['data']['richContent']
-                            fulfilment_type='richContent'
+                            FFM_DATA = FFM['data']['fulfillmentMessages']
+                            fulfilment_type='fulfillmentMessages'
                         else:
                             FFM_DATA = FFM['data']['fulfillmentText']
                     except:
