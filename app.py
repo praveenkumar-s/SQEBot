@@ -12,6 +12,10 @@ from os import path
 import paho.mqtt.client as mqtt
 import os
 import time
+#-------Socket.io Conversion----#
+from flask_socketio import SocketIO, emit
+
+#-------------------------------
 
 BROKER = os.environ.get('BROKER')
 #BROKER='broker.hivemq.com'
@@ -20,6 +24,8 @@ client.connect(BROKER, 1883, 1000)
 
 # Create Flask app and enable info level logging
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
 #run_with_ngrok(app)
 #db9c38caTestCaseResults__FullFillment.json
 INTENTS_2_CHANNELS={
@@ -64,6 +70,7 @@ def webhook():
     #Send the Request to Remote Processing Engine: 
     try:
         publish_message(INTENTS_2_CHANNELS[intent], json.dumps(request_))
+        socketio.emit(INTENTS_2_CHANNELS[intent],json.dumps(request_))
         logging.debug("Successfully published the request {0} \n\nto the channel: {1}".format(str(request_), INTENTS_2_CHANNELS[intent] ))
     except Exception as e :
         logging.error("Error Occurred while Send the Request to Remote Processing Engine : \n request: {0} , \n Error: {1}".format(str(request_), str(e.__traceback__()) ))
@@ -134,4 +141,5 @@ if __name__ == '__main__':
     #         stdin=None, stdout=None, stderr=None, close_fds=True)
     #     pids.append(process.pid)
     logging.info("process ids: "+ str(pids))
-    app.run( threaded = True)
+    socketio.run(app, threaded = True )
+    #app.run( threaded = True)
