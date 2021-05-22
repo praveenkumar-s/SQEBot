@@ -9,7 +9,7 @@ import json
 import logging
 import subprocess
 from os import path
-import paho.mqtt.client as mqtt
+#import paho.mqtt.client as mqtt
 import os
 import time
 #-------Socket.io Conversion----#
@@ -19,8 +19,8 @@ from flask_socketio import SocketIO, emit
 
 BROKER = os.environ.get('BROKER')
 #BROKER='broker.hivemq.com'
-client = mqtt.Client()
-client.connect(BROKER, 1883, 1000)
+#client = mqtt.Client()
+#client.connect(BROKER, 1883, 1000)
 
 # Create Flask app and enable info level logging
 app = Flask(__name__)
@@ -45,11 +45,12 @@ FULFILLMENT_TIME_LIMIT=10
 
 
 def publish_message(topic,request):
-    if(client.is_connected):
-        client.publish(topic, request)
-    else:
-        client.connect(BROKER , 1883,1000)
-        client.publish(topic, request)
+    pass
+    # if(client.is_connected):
+    #     client.publish(topic, request)
+    # else:
+    #     client.connect(BROKER , 1883,1000)
+    #     client.publish(topic, request)
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -69,7 +70,7 @@ def webhook():
     
     #Send the Request to Remote Processing Engine: 
     try:
-        publish_message(INTENTS_2_CHANNELS[intent], json.dumps(request_))
+        #publish_message(INTENTS_2_CHANNELS[intent], json.dumps(request_))
         socketio.emit(INTENTS_2_CHANNELS[intent],json.dumps(request_))
         logging.debug("Successfully published the request {0} \n\nto the channel: {1}".format(str(request_), INTENTS_2_CHANNELS[intent] ))
     except Exception as e :
@@ -141,5 +142,5 @@ if __name__ == '__main__':
     #         stdin=None, stdout=None, stderr=None, close_fds=True)
     #     pids.append(process.pid)
     logging.info("process ids: "+ str(pids))
-    socketio.run(app, threaded = True )
+    socketio.run(app)
     #app.run( threaded = True)
