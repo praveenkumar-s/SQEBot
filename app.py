@@ -14,6 +14,7 @@ import os
 import time
 #-------Socket.io Conversion----#
 from flask_socketio import SocketIO, emit
+from os import environ
 
 #-------------------------------
 
