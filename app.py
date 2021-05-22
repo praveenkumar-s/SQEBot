@@ -142,5 +142,5 @@ if __name__ == '__main__':
     #         stdin=None, stdout=None, stderr=None, close_fds=True)
     #     pids.append(process.pid)
     logging.info("process ids: "+ str(pids))
-    socketio.run(app)
+    socketio.run(app,  host='0.0.0.0', port=environ.get("PORT", 5000))
     #app.run( threaded = True)
